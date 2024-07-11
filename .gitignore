@@ -1,0 +1,4 @@
+*~
+data/
+config/
+docker-compose.override.yml

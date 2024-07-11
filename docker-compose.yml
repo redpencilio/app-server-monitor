@@ -1,0 +1,58 @@
+version: "3"
+services:
+  server:
+    image: quay.io/prometheus/prometheus:v2.47.0
+    volumes:
+      - ./config/prometheus.yml:/config/prometheus.yml
+      - ./config/rules/:/config/rules/
+    command: "--config.file=/config/prometheus.yml --storage.tsdb.retention=30d"
+    ports:
+      - 127.0.0.1:9090:9090
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+    restart: always
+  alertmanager:
+    image: quay.io/prometheus/alertmanager:v0.26.0
+    volumes:
+      - ./config/alertmanager.yml:/config/alertmanager.yml
+    command: "--config.file=/config/alertmanager.yml --log.level=debug"
+    ports:
+      - 127.0.0.1:9093:9093
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+    restart: always
+  blackbox:
+    image: quay.io/prometheus/blackbox-exporter:v0.24.0
+    volumes:
+      - ./config/blackbox.yml:/config/blackbox.yml
+    command: "--config.file=/config/blackbox.yml"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+    restart: always
+  grafana:
+    image: grafana/grafana:11.1.0
+    depends_on:
+      - server
+    volumes:
+      - './data/grafana:/var/lib/grafana'
+      - './grafana/provisioning:/etc/grafana/provisioning'
+    restart: always
+    ports:
+      - 127.0.0.1:3000:3000
+  metrics:
+    image: quay.io/prometheus/node-exporter
+    pid: "host"
+    volumes:
+      - /sys:/sys:ro
+    expose:
+      - 9100
+    restart: always
