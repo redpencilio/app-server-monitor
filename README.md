@@ -20,8 +20,6 @@ ssh my-server -L 3000:127.0.0.1:3000
 Setup a metrics stack with a node-exporter service on the server you want to be monitored. Make the service integrate with Letsencrypt such that it's accessible by a DNS name.
 
 ```yml
-version: "3"
-
 services:
   exporter:
     image: quay.io/prometheus/node-exporter
@@ -44,7 +42,7 @@ networks:
       name: letsencrypt_default
 ```
 
-Next, add the DNS name to the Prometheus configuration on your monitor server. Restart the `server` service
+Next, add the DNS name to the Prometheus configuration in `./config/prometheus.yml` on your monitor server. Restart the `server` service:
 
 ```bash
 docker compose restart server
@@ -68,4 +66,3 @@ services:
 
 #### Prometheus configuration and rules
 Prometheus can be configured in `./config/prometheus.yml` and `./config/alertmanager.yml`. Since these files are environment specific, the config folder is listed in `.gitignore`.
-```
