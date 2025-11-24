@@ -56,8 +56,6 @@ The password for the Grafana admin user can be configured by setting the `GF_SEC
 E.g.
 
 ```yaml
-version: "3"
-
 services:
   grafana:
     environment:

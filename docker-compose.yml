@@ -1,4 +1,3 @@
-version: "3"
 services:
   server:
     image: quay.io/prometheus/prometheus:v2.47.0
