@@ -48,7 +48,7 @@ services:
     ports:
       - 127.0.0.1:3000:3000
   metrics:
-    image: quay.io/prometheus/node-exporter:1.10.2
+    image: quay.io/prometheus/node-exporter:v1.10.2
     pid: "host"
     volumes:
       - /sys:/sys:ro

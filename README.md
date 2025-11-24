@@ -22,7 +22,7 @@ Setup a metrics stack with a node-exporter service on the server you want to be 
 ```yml
 services:
   exporter:
-    image: quay.io/prometheus/node-exporter:1.10.2
+    image: quay.io/prometheus/node-exporter:v1.10.2
     pid: "host"
     volumes:
       - /sys:/sys:ro
