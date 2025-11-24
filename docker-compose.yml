@@ -1,6 +1,6 @@
 services:
   server:
-    image: quay.io/prometheus/prometheus:v2.47.0
+    image: quay.io/prometheus/prometheus:v3.7.3
     volumes:
       - ./config/prometheus.yml:/config/prometheus.yml
       - ./config/rules/:/config/rules/
@@ -14,7 +14,7 @@ services:
         max-file: "10"
     restart: always
   alertmanager:
-    image: quay.io/prometheus/alertmanager:v0.26.0
+    image: quay.io/prometheus/alertmanager:v0.29.0
     volumes:
       - ./config/alertmanager.yml:/config/alertmanager.yml
     command: "--config.file=/config/alertmanager.yml --log.level=debug"
@@ -27,7 +27,7 @@ services:
         max-file: "10"
     restart: always
   blackbox:
-    image: quay.io/prometheus/blackbox-exporter:v0.24.0
+    image: quay.io/prometheus/blackbox-exporter:v0.27.0
     volumes:
       - ./config/blackbox.yml:/config/blackbox.yml
     command: "--config.file=/config/blackbox.yml"
@@ -38,7 +38,7 @@ services:
         max-file: "10"
     restart: always
   grafana:
-    image: grafana/grafana:11.1.0
+    image: grafana/grafana:12.1.0
     depends_on:
       - server
     volumes:
@@ -48,7 +48,7 @@ services:
     ports:
       - 127.0.0.1:3000:3000
   metrics:
-    image: quay.io/prometheus/node-exporter
+    image: quay.io/prometheus/node-exporter:1.10.2
     pid: "host"
     volumes:
       - /sys:/sys:ro
