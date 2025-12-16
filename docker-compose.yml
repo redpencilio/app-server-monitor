@@ -38,7 +38,7 @@ services:
   blackbox:
     image: quay.io/prometheus/blackbox-exporter:v0.27.0
     volumes:
-      - ./config/blackbox.yml:/config/blackbox.yml
+      - ./config/blackbox/blackbox.yml:/config/blackbox.yml
     command: "--config.file=/config/blackbox.yml"
     logging:
       driver: "json-file"

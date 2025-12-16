@@ -13,7 +13,54 @@ rule_files:
   - /config/rules/*.yml
 
 scrape_configs:
-# - job_name: "my-example"
-#   static_configs:
-#     - targets:
-#       - "metrics.my-example.s.redhost.be"
+  # Regular metrics via node-exporter
+  - job_name: "Metrics"
+    static_configs:
+      - targets:
+        # - "metrics.my-example.s.redhost.be"
+
+  # Website HTTPs uptime via blackbox-exporter
+  - job_name: "Website uptime"
+    metrics_path: /probe
+    scrape_interval: 1m
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        # - https://my.example.com/
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: (.*)(:80)?
+        target_label: __param_target
+        replacement: ${1}
+      - source_labels: [__param_target]
+        regex: (.*)
+        target_label: instance
+        replacement: ${1}
+      - source_labels: []
+        regex: .*
+        target_label: __address__
+        replacement: blackbox:9115
+
+  # JSON API uptime via blackbox-exporter
+  - job_name: "JSON API uptime"
+    metrics_path: /probe
+    scrape_interval: 1m
+    params:
+      module: [http_2xx_json]
+    static_configs:
+      - targets:
+        # - https://my.example.com/
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: (.*)(:80)?
+        target_label: __param_target
+        replacement: ${1}
+      - source_labels: [__param_target]
+        regex: (.*)
+        target_label: instance
+        replacement: ${1}
+      - source_labels: []
+        regex: .*
+        target_label: __address__
+        replacement: blackbox:9115
