@@ -1,4 +1,7 @@
 *~
 data/
-config/
+config/grafana
+config/prometheus
+config/alertmanager
+config/blackbox
 docker-compose.override.yml
