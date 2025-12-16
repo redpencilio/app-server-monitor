@@ -5,7 +5,7 @@ services:
       - prometheus
     volumes:
       - ./data/grafana:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
     logging:
       driver: "json-file"
       options:
