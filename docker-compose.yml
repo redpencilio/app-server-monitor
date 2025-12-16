@@ -6,6 +6,11 @@ services:
     volumes:
       - ./data/grafana:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
     restart: always
   prometheus:
     image: quay.io/prometheus/prometheus:v3.7.3
