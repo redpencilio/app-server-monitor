@@ -3,6 +3,9 @@ services:
     image: grafana/grafana:12.1.0
     depends_on:
       - prometheus
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: "admin"
+      GF_USERS_ALLOW_SIGN_UP: "false"
     volumes:
       - ./config/grafana/provisioning:/etc/grafana/provisioning
       - ./data/grafana:/var/lib/grafana
