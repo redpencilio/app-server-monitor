@@ -1,5 +1,13 @@
 services:
-  server:
+  grafana:
+    image: grafana/grafana:12.1.0
+    depends_on:
+      - prometheus
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    restart: always
+  prometheus:
     image: quay.io/prometheus/prometheus:v3.7.3
     volumes:
       - ./config/prometheus.yml:/config/prometheus.yml
@@ -32,12 +40,4 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-    restart: always
-  grafana:
-    image: grafana/grafana:12.1.0
-    depends_on:
-      - server
-    volumes:
-      - ./data/grafana:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
     restart: always
