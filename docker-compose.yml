@@ -15,8 +15,8 @@ services:
   prometheus:
     image: quay.io/prometheus/prometheus:v3.7.3
     volumes:
-      - ./config/prometheus.yml:/config/prometheus.yml
-      - ./config/rules/:/config/rules/
+      - ./config/prometheus/prometheus.yml:/config/prometheus.yml
+      - ./config/prometheus/rules/:/config/rules/
     command: "--config.file=/config/prometheus.yml --storage.tsdb.retention.time=1y"
     logging:
       driver: "json-file"
