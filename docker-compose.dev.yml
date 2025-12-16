@@ -8,6 +8,6 @@ services:
   alertmanager:
     ports:
       - 127.0.0.1:9093:9093
-  alertmanager:
+  metrics:
     ports:
       - 127.0.0.1:9100:9100
