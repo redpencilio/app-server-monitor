@@ -27,7 +27,7 @@ services:
   alertmanager:
     image: quay.io/prometheus/alertmanager:v0.29.0
     volumes:
-      - ./config/alertmanager.yml:/config/alertmanager.yml
+      - ./config/alertmanager/alertmanager.yml:/config/alertmanager.yml
     command: "--config.file=/config/alertmanager.yml --log.level=debug"
     logging:
       driver: "json-file"

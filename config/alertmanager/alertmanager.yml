@@ -1,0 +1,19 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  group_wait: 30s
+  repeat_interval: 24h
+  group_by: [cluster]
+  receiver: default
+
+inhibit_rules:
+# Suppress warning alerts if critical alerts are firing on same cluster/service
+- source_match:
+    severity: 'critical'
+  target_match:
+    severity: 'warning'
+  equal: ['alertname', 'cluster', 'service']
+
+receivers:
+  - name: 'default'
