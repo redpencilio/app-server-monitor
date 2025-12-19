@@ -20,7 +20,7 @@ services:
     volumes:
       - ./config/prometheus/prometheus.yml:/config/prometheus.yml
       - ./config/prometheus/rules/:/config/rules/
-    command: "--config.file=/config/prometheus.yml --storage.tsdb.retention.time=1y"
+    command: "--config.file=/config/prometheus.yml"
     logging:
       driver: "json-file"
       options:

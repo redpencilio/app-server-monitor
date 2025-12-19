@@ -3,6 +3,10 @@ global:
   evaluation_interval: 15s # Interval to evaluate alerting/recording rules
   scrape_timeout: 10s
 
+storage:
+  tsdb:
+    retention_time: 30d
+
 alerting:
   alertmanagers:
     - static_configs:
