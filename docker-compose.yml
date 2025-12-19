@@ -3,6 +3,7 @@ services:
     image: grafana/grafana:12.1.0
     depends_on:
       - prometheus
+    user: "root"
     environment:
       GF_SECURITY_ADMIN_PASSWORD: "admin"
       GF_USERS_ALLOW_SIGN_UP: "false"
@@ -17,6 +18,7 @@ services:
     restart: always
   prometheus:
     image: quay.io/prometheus/prometheus:v3.7.3
+    user: "root"
     volumes:
       - ./config/prometheus/prometheus.yml:/config/prometheus.yml
       - ./config/prometheus/rules/:/config/rules/
