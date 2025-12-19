@@ -3,5 +3,6 @@ data/
 config/grafana
 config/prometheus
 config/alertmanager
+config/pve-exporter
 config/blackbox
 docker-compose.override.yml

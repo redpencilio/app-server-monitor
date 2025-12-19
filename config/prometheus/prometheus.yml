@@ -68,3 +68,21 @@ scrape_configs:
         regex: .*
         target_label: __address__
         replacement: blackbox:9115
+
+  # Proxmox cluster metrics via pve-exporter
+  - job_name: "pve"
+    metrics_path: /pve
+    static_configs:
+      - targets:
+        # - my-example.com # Entire Proxmox cluster is monitored via single node
+    params:
+      module: [default]
+      cluster: ["1"]
+      node: ["1"]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: pve-exporter:9221

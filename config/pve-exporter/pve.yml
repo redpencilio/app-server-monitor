@@ -1,0 +1,5 @@
+default:
+  # Create a 'pve' user in your Proxmox cluster with PVEAuditor role (read-only)
+  user: pve@pve
+  password: mySecret
+  verify_ssl: false

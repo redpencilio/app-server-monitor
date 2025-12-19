@@ -38,6 +38,16 @@ services:
         max-size: "10m"
         max-file: "10"
     restart: always
+  pve-exporter:
+    image: prompve/prometheus-pve-exporter:3.7.0
+    volumes:
+      - ./config/pve-exporter/pve.yml:/etc/prometheus/pve.yml
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+    restart: always
   blackbox:
     image: quay.io/prometheus/blackbox-exporter:v0.27.0
     volumes:
