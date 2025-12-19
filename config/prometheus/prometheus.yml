@@ -5,7 +5,8 @@ global:
 
 storage:
   tsdb:
-    retention_time: 30d
+    retention:
+      time: 30d
 
 alerting:
   alertmanagers:
