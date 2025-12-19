@@ -18,13 +18,13 @@ rule_files:
 
 scrape_configs:
   # Regular metrics via node-exporter
-  - job_name: "Metrics"
+  - job_name: "server-metrics"
     static_configs:
       - targets:
         # - "metrics.my-example.s.redhost.be"
 
   # Website HTTPs uptime via blackbox-exporter
-  - job_name: "Website uptime"
+  - job_name: "website-uptime"
     metrics_path: /probe
     scrape_interval: 1m
     params:
@@ -47,7 +47,7 @@ scrape_configs:
         replacement: blackbox:9115
 
   # JSON API uptime via blackbox-exporter
-  - job_name: "JSON API uptime"
+  - job_name: "json-api-uptime"
     metrics_path: /probe
     scrape_interval: 1m
     params:
