@@ -16,36 +16,12 @@ ssh my-server -L 3000:127.0.0.1:3000
 ```
 ## How-to guides
 ### How to add a server to be monitored
+Setup a metrics stack providing server and container metrics using a [app-metrics](https://github.com/redpencilio/app-metrics). Make the dispatcher service integrate with Letsencrypt such that it's accessible by a DNS name.
 
-Setup a metrics stack with a node-exporter service on the server you want to be monitored. Make the service integrate with Letsencrypt such that it's accessible by a DNS name.
-
-```yml
-services:
-  exporter:
-    image: quay.io/prometheus/node-exporter:v1.10.2
-    pid: "host"
-    volumes:
-      - /sys:/sys:ro
-    restart: always
-    environment:
-      VIRTUAL_HOST: "my-domain.redpencil.io"
-      LETSENCRYPT_HOST: "my-domain.redpencil.io"
-      LETSENCRYPT_EMAIL: "support@redpencil.io"
-    expose:
-      - 9100
-    networks:
-      - proxy
-      - default
-networks:
-  proxy:
-    external:
-      name: letsencrypt_default
-```
-
-Next, add the DNS name to the Prometheus configuration in `./config/prometheus.yml` on your monitor server. Restart the `server` service:
+Next, add the DNS name to the Prometheus configuration in `./config/prometheus.yml` on your monitor server. Restart the `prometheus` service:
 
 ```bash
-docker compose restart server
+docker compose restart prometheus
 ```
 
 ## Reference
@@ -64,3 +40,5 @@ services:
 
 #### Prometheus configuration and rules
 Prometheus can be configured in `./config/prometheus.yml` and `./config/alertmanager.yml`. Since these files are environment specific, the config folder is listed in `.gitignore`.
+
+How to configure scrape jobs in Prometheus is explained in [the official documentation](https://prometheus.io/docs/prometheus/latest/getting_started/).
