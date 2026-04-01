@@ -73,3 +73,8 @@ services:
         max-size: "10m"
         max-file: "10"
     restart: always
+  grafana-scripts:
+    image: semtech/simple-script-store:1.0.0
+    volumes:
+      - ./scripts/grafana:/app/scripts
+    restart: "no"
