@@ -1,6 +1,6 @@
 services:
   grafana:
-    image: grafana/grafana:12.1.0
+    image: grafana/grafana:12.4.16
     depends_on:
       - prometheus
     user: "root"
